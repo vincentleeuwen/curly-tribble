@@ -5,7 +5,7 @@ class Hello extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: 'Hello from React mister'
+      message: 'Hello from React there'
     }
   }
   render() {

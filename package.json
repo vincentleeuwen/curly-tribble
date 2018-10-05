@@ -4,7 +4,8 @@
   "description": "A collection of educational resources about React, GraphQL and Relaxy",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node server.js"
+    "babel-node": "babel-node",
+    "start": "nodemon --exec npm run babel-node -- ./server.js"
   },
   "author": "Vincent van Leeuwen",
   "license": "ISC",
