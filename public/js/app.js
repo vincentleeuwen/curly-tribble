@@ -1,20 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import API from './api';
 
-class Hello extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      message: 'Hello from React there'
-    }
+class Main extends React.Component {
+  async componentDidMount() {
+    let links = await API.fetchLinks();
+    console.log(links);
   }
   render() {
     return (
       <div>
-        <h2>Hello in JSX!</h2>
+        <h3>Links</h3>
+        <ul>
+          <li>Link ...</li>
+          <li>Link ...</li>
+        </ul>
       </div>
     )
   }
 }
 
-ReactDOM.render(<Hello />, document.getElementById('app'));
+ReactDOM.render(<Main />, document.getElementById('app'));
