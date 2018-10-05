@@ -5,12 +5,16 @@ class Hello extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: 'Hello from React'
+      message: 'Hello from React mister'
     }
   }
   render() {
-    return React.createElement('h3', null, this.state.message);
+    return (
+      <div>
+        <h2>Hello in JSX!</h2>
+      </div>
+    )
   }
 }
 
-ReactDOM.render(React.createElement(Hello), document.getElementById('app'));
+ReactDOM.render(<Hello />, document.getElementById('app'));
