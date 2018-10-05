@@ -5,7 +5,7 @@ import LinkStore from './stores/LinkStore';
 
 const _getAppState = () => {
   return { links: LinkStore.getAll() };
-}
+};
 
 class Main extends React.Component {
   constructor(props) {
@@ -22,16 +22,21 @@ class Main extends React.Component {
     LinkStore.removeListener('change', this.onChange);
   }
   onChange() {
-    console.log('4. In the view');
     this.setState(_getAppState());
   }
   render() {
+    let content = this.state.links.map(link => {
+      return (
+        <li key={link._id}>
+          <a href={link.url} target="_blank">{link.title}</a>
+        </li>
+      )
+    });
     return (
       <div>
         <h3>Links</h3>
         <ul>
-          <li>Link ...</li>
-          <li>Link ...</li>
+          { content }
         </ul>
       </div>
     )
