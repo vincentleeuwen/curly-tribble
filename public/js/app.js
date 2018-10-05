@@ -4,8 +4,8 @@ import API from './api';
 
 class Main extends React.Component {
   async componentDidMount() {
-    let links = await API.fetchLinks();
-    console.log(links);
+    await API.fetchLinks();
+    // console.log(links);
   }
   render() {
     return (
