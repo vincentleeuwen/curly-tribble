@@ -10,17 +10,22 @@ let app = express();
 
 app.use(express.static('public'));
 
-app.listen(3000);
+const port = 3000;
 
+
+let db;
 MongoClient.connect(process.env.MONGO_URL, (err, database) => {
   if (err) throw err;
 
-  // const db = database.db('rgrjs');
+  db = database.db();
+  app.listen(port, () => console.log(`Listening on port ${port}...`));
   // console.log("Connected successfully to server");  
-  
-  database.db().collection('links').find({}).toArray((err, links) => {
+});
+
+app.get('/data/links', (req, res) => {
+  db.collection('links').find({}).toArray((err, links) => {
     if (err) throw err;
 
-    console.log(links);
+    res.json(links);
   })
 });
