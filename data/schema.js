@@ -1,7 +1,7 @@
 import {
   GraphQLSchema,
   GraphQLObjectType,
-  GraphQLInt,
+  GraphQLID,
   GraphQLString,
   GraphQLList
 } from 'graphql';
@@ -13,7 +13,7 @@ let Schema = db => {
   const linkType = new GraphQLObjectType({
     name: 'Link',
     fields: () => ({
-      _id: { type: GraphQLString },
+      _id: { type: GraphQLID },
       title: { type: GraphQLString },
       url: { type: GraphQLString }
     })

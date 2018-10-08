@@ -26,10 +26,10 @@ MongoClient.connect(process.env.MONGO_URL, (err, database) => {
   // console.log("Connected successfully to server");  
 });
 
-app.get('/data/links', (req, res) => {
-  db.collection('links').find({}).toArray((err, links) => {
-    if (err) throw err;
+// app.get('/data/links', (req, res) => {
+//   db.collection('links').find({}).toArray((err, links) => {
+//     if (err) throw err;
 
-    res.json(links);
-  })
-});
+//     res.json(links);
+//   })
+// });
