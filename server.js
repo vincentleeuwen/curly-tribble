@@ -2,18 +2,13 @@ import express from 'express';
 import dotenv from 'dotenv';
 import { MongoClient } from 'mongodb';
 import GraphQLHTTP from 'express-graphql';
-import schema from './data/schema';
+import Schema from './data/schema';
 
 dotenv.config();
 
 let app = express();
 // app.get('/', (req, res) => res.send('hello nodemon'));
 app.use(express.static('public'));
-
-app.use('/graphql', GraphQLHTTP({
-  schema,
-  graphiql: true
-}));
 
 const port = 3000;
 
@@ -22,6 +17,11 @@ MongoClient.connect(process.env.MONGO_URL, (err, database) => {
   if (err) throw err;
 
   db = database.db();
+  app.use('/graphql', GraphQLHTTP({
+    schema: Schema(db),
+    graphiql: true
+  }));
+
   app.listen(port, () => console.log(`Listening on port ${port}...`));
   // console.log("Connected successfully to server");  
 });

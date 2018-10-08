@@ -8,44 +8,36 @@ import {
 
 // let counter = 42;
 
-let data = [
-  {
-    counter: 42
-  },
-  {
-    counter: 43
-  },
-  {
-    counter: 44
-  }
-];
+let Schema = db => {
+  let data = [];
 
-let counterType = new GraphQLObjectType({
-  name: 'Counter',
-  fields: () => ({
-    counter: { type: GraphQLInt }
-  })
-});
+  db.collection('links').find({}).toArray((err, links) => {
+    if (err) throw err;
+    data = links;
+  });
 
-let schema = new GraphQLSchema({
-  query: new GraphQLObjectType({
-    name: 'Query',
+  const linkType = new GraphQLObjectType({
+    name: 'Link',
     fields: () => ({
-      data: {
-        type: new GraphQLList(counterType),
-        resolve: () => data
-      }
+      _id: { type: GraphQLString },
+      title: { type: GraphQLString },
+      url: { type: GraphQLString }
     })
-  }),
-  // mutation: new GraphQLObjectType({
-  //   name: 'Mutation',
-  //   fields: () => ({
-  //     incrementCounter: {
-  //       type: GraphQLInt,
-  //       resolve: () => ++counter
-  //     }
-  //   })
-  // }),
-});
+  });
 
-export default schema;
+  const schema = new GraphQLSchema({
+    query: new GraphQLObjectType({
+      name: 'Query',
+      fields: () => ({
+        links: {
+          type: new GraphQLList(linkType),
+          resolve: () => data // TODO: Read from Mongo
+        }
+      })
+    })
+  });
+
+  return schema;
+}
+
+export default Schema;
