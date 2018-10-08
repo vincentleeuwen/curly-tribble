@@ -8,7 +8,7 @@ ReactDOM.render(<Main />, document.getElementById('app'));
 
 console.log(
   Relay.QL`
-    {
+    query Test {
       links {
         title
       }
