@@ -18,10 +18,6 @@ class Main extends Component {
   }
   state = _getAppState();
 
-  constructor(props) {
-    super(props);
-    this.onChange = this.onChange.bind(this);
-  }
   async componentDidMount() {
     LinkStore.on('change', this.onChange);
     await API.fetchLinks();
@@ -29,7 +25,7 @@ class Main extends Component {
   componentWillUnmount() {
     LinkStore.removeListener('change', this.onChange);
   }
-  onChange() {
+  onChange = () => {
     this.setState(_getAppState());
   }
   render() {
