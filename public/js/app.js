@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import API from './api';
 import LinkStore from './stores/LinkStore';
+import 'babel-polyfill';
 
 const _getAppState = () => {
   return { links: LinkStore.getAll() };
 };
 
-class Main extends React.Component {
+class Main extends Component {
+  static propTypes = {
+    limit: PropTypes.number
+  }
+  static defaultProps = {
+    limit: 3
+  }
   constructor(props) {
     super(props);
 
@@ -25,7 +33,8 @@ class Main extends React.Component {
     this.setState(_getAppState());
   }
   render() {
-    let content = this.state.links.map(link => {
+    const { limit } = this.props;
+    let content = this.state.links.slice(0, limit).map(link => {
       return (
         <li key={link._id}>
           <a href={link.url} target="_blank">{link.title}</a>
