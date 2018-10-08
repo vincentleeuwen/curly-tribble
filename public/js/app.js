@@ -16,10 +16,10 @@ class Main extends Component {
   static defaultProps = {
     limit: 3
   }
+  state = _getAppState();
+
   constructor(props) {
     super(props);
-
-    this.state = _getAppState();
     this.onChange = this.onChange.bind(this);
   }
   async componentDidMount() {
