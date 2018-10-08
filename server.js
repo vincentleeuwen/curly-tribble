@@ -1,17 +1,20 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { MongoClient } from 'mongodb';
+import GraphQLHTTP from 'express-graphql';
+import schema from './data/schema';
 
 dotenv.config();
 
 let app = express();
-
 // app.get('/', (req, res) => res.send('hello nodemon'));
-
 app.use(express.static('public'));
 
-const port = 3000;
+app.use('/graphql', GraphQLHTTP({
+  schema
+}));
 
+const port = 3000;
 
 let db;
 MongoClient.connect(process.env.MONGO_URL, (err, database) => {
