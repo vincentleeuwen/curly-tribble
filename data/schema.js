@@ -9,6 +9,14 @@ import {
 // let counter = 42;
 
 let Schema = db => {
+  let data = [];
+
+  db.collection('links').find({}).toArray((err, links) => {
+    if (err) throw err;
+
+    data = links.map(link => Object.assign({}, link, { _id: link._id.toString() }));
+  })
+
 
   const linkType = new GraphQLObjectType({
     name: 'Link',
@@ -25,7 +33,7 @@ let Schema = db => {
       fields: () => ({
         links: {
           type: new GraphQLList(linkType),
-          resolve: () => db.collection('links').find({}).toArray() // GraphQL takes care of promise
+          resolve: () => data
         }
       })
     })
